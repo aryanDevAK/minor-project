@@ -24,5 +24,5 @@ To view the ER model diagram:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/hospital-er-model.git
+   git clone https://github.com/aryanDevAK/minor-project.git
    ```
