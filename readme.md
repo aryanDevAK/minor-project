@@ -23,6 +23,26 @@ This repository contains the Entity-Relationship (ER) model diagram for the Hosp
 To view the ER model diagram:
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/aryanDevAK/minor-project.git
+
+   ```
+
+2. Creating Virtual Enviornment:
+
+   ````bash
+   cd backend
+   python -m venv venv
+   ```   ```
+
+   ````
+
+3. Activating Virtual Enviornement:
+   ```bash
+   env\Scripts\Activate.ps1
+   ```
+4. Installing required Libraries:
+   ```bash
+   pip install -r requirements.txt
    ```
