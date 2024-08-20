@@ -1,5 +1,6 @@
 flask
 flask_sqlalchemy
+flask_bcrypt
 flask_cors
 flask_bcrypt
 scikit-learn
