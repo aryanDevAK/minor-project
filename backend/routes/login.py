@@ -11,7 +11,7 @@ def login_user():
     id = request.json.get("id")
     password = request.json.get("password")
     
-    user = User.query.filter_by(id=id).first()
+    user = User.query.filter_by(user_id=id).first()
     if not user or not check_password_hash(user.password, password):
         return jsonify({"error": "Invalid ID or password"}), 401
 

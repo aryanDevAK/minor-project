@@ -7,13 +7,15 @@ from models.dbConfig import db
 class User(db.Model):
     __tablename__ = 'users'
 
-    id = db.Column(db.String(128), primary_key=True, unique=True)
+    user_id = db.Column(db.String(128), primary_key=True, unique=True)
+    email = db.Column(db.String(128), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(50), nullable=False)
 
     def to_json(self):
         return {
             "id": self.id,
+            "email": self.email,
             "password" : self.password,
             "role": self.role
         }

@@ -1,13 +1,14 @@
 # models/Doctor.py
 from models.base_model import BaseModel
 from models.dbConfig import db
+from sqlalchemy.orm import relationship
 
 class Doctor(BaseModel):
     __tablename__ = 'doctors'
     
     name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    speciality = db.Column(db.String(100), nullable=False)
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -16,6 +17,6 @@ class Doctor(BaseModel):
     def to_json():
         return {
             "name" : self.name,
-            "email" : self.email,
-            "password" : self.password
+            "age" : self.age,
+            "speciality" : self.speciality
         }
