@@ -46,9 +46,9 @@ How to run the code:
    ```bash
    python app.py
    ```
-   The python server should run on the server "localhost:5000"
-   Now keep the terminal as it is and let the server run.
-   Open another command line for the frontend
+   The python server should run on the server "localhost:5000".\n
+   Now keep the terminal as it is and let the server run.\n
+   Open another command line for the frontend.
    
 8. Running the Frontend :
    Switch the directory using
@@ -64,4 +64,4 @@ How to run the code:
     ```bash
     npm run dev
     ```
-    The node server must run on the "localhost:5173"
+    The node server must run on the "localhost:5173".
