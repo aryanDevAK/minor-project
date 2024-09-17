@@ -1,0 +1,25 @@
+.login-card {
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  padding: 20px;
+  width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-card h2 {
+  margin-top: 0;
+}
+
+.login-card button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-card button:hover {
+  background-color: #3e8e41;
+}

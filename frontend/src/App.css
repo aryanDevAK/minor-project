@@ -1,0 +1,15 @@
+.App {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.cont {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 40px;
+}
+
+.cont > * {
+  margin: 20px;
+}

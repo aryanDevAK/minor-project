@@ -1,6 +1,5 @@
 from models.dbConfig import db
 
-
 class Doc_Dept(db.Model):
     __tablename__ = "doc_dept"
 

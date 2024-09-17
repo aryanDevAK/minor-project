@@ -1,7 +1,6 @@
 from models.dbConfig import db
 from sqlalchemy.orm import relationship
 
-
 def generate_custom_id(model_class, prefix):
     last_entry = model_class.query.filter(model_class.id.like(f"{prefix}%")).order_by(model_class.id.desc()).first()
     
