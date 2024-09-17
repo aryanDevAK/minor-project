@@ -20,29 +20,48 @@ This repository contains the Entity-Relationship (ER) model diagram for the Hosp
 
 ## Usage
 
-To view the ER model diagram:
+How to run the code:
 
 1. Clone the repository:
 
    ```bash
    git clone https://github.com/aryanDevAK/minor-project.git
-
    ```
-
 2. Creating Virtual Enviornment:
-
+   Delete the pulled virtual env file and create new.
    ````bash
    cd backend
    python -m venv venv
    ```   ```
-
-   ````
-
-3. Activating Virtual Enviornement:
+4. Activating Virtual Enviornement:
    ```bash
    env\Scripts\Activate.ps1
    ```
-4. Installing required Libraries:
+5. Installing required Libraries:
    ```bash
    pip install -r requirements.txt
    ```
+6. Running the Server :
+   Make sure you are in the folder "./minor-project/backend".
+   ```bash
+   python app.py
+   ```
+   The python server should run on the server "localhost:5000"
+   Now keep the terminal as it is and let the server run.
+   Open another command line for the frontend
+   
+8. Running the Frontend :
+   Switch the directory using
+   ```bash
+   cd frontend
+   ```
+   Make sure now you are in the folder "./minor-project/frontend".
+9. Install Node js modules
+   ```bash
+   npm install
+   ```
+10. Run the server
+    ```bash
+    npm run dev
+    ```
+    The node server must run on the "localhost:5173"
