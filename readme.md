@@ -1,4 +1,4 @@
-# Hospital ER Model Diagram
+# Medixify - AI for Healthcare
 
 ## Overview
 
