@@ -6,7 +6,7 @@
 - [Features](#features)
 - [Usage](#usage)
 - [Contributions](#contributions)
-- [Tech Stack](#techStack)
+- [Tech Stack](#TechStack)
 
 ## Overview
 
@@ -68,7 +68,7 @@ How to run the code:
 
 ## Contributinons
 
-## Tech Stack
+## TechStack
    1.Backend:
    ```
 Framework: Python Flask
