@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import "../styles/loginPages.css"
+import "./login.css"
 
 const LoginPagePatient = () => {
   const [mobileNum, setMobileNum] = useState("");
@@ -46,7 +46,8 @@ const LoginPagePatient = () => {
           value={mobileNum}
           onChange={(e) => setMobileNum(e.target.value)}
         />
-        <button type="submit" className="login-button">Login</button>
+        <button type="submit" className="btn login-btn">Login</button>
+        <p>Forgot Password?</p>
         {error && <div className="error-message">{error}</div>}
       </form>
     </div>

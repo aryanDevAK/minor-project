@@ -1,4 +1,3 @@
-# models/Records.py
 from models.dbConfig import db
 from datetime import date
 
@@ -18,18 +17,20 @@ class Record(db.Model):
     
     id = db.Column(db.String(10), primary_key=True)
     body_temp = db.Column(db.String(10), nullable=True, default="Not Checked")
-    blood_pressure = db.Column(db.String(10), nullable = True, default="Not Checked")
+    blood_pressure = db.Column(db.String(10), nullable=True, default="Not Checked")
     spo = db.Column(db.String(10), nullable=True, default="Not Checked")
+    date_created = db.Column(db.Date, default=date.today, nullable=False)  # New date field
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         if not self.id:
             self.id = generate_custom_id(Record, 'REC')
 
-    def to_json():
+    def to_json(self):
         return {
             'id': self.id,
-            "body_temp" : self.body_temp,
+            "body_temp": self.body_temp,
             "blood_pressure": self.blood_pressure,
-            "spo": self.spo
+            "spo": self.spo,
+            "date_created": str(self.date_created)  # Convert date to string for JSON
         }

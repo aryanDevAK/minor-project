@@ -1,0 +1,23 @@
+.login-card {
+  background: var(--white);
+  padding: 20px;
+  width: 300px;
+  height: 350px;
+  margin-top: ;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: var(--gray);
+}
+.login-card h2 {
+  margin-top: 10px;
+  text-align: left;
+}
+.login-card p {
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+  padding: 10px 0;
+}
+.login-card button {
+  margin: 50px auto;
+}

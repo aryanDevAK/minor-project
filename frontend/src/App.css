@@ -1,15 +1,15 @@
-.App {
-  font-family: Arial, sans-serif;
-  text-align: center;
+.logo-main {
+  display: block;
+  margin: 50px auto;
+  max-width: 500px;
+  height: auto;
 }
-
 .cont {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin: 40px;
 }
-
 .cont > * {
   margin: 20px;
 }

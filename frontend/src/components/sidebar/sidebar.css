@@ -1,0 +1,73 @@
+.sidebar {
+  background: #fff;
+  width: 15%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  padding-left: 2%;
+  padding-top: 80px;
+}
+.profile {
+  margin-bottom: 10px;
+  text-align: center;
+}
+.profile h3 {
+  font-size: 13px;
+  color: var(--gray);
+}
+.profile img {
+  width: 40px;
+}
+.shortcut-link {
+  margin-top: 10px;
+}
+.shortcut-link img {
+  width: 20px;
+  margin-right: 20px;
+}
+.side-link {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  width: fit-content;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+.sidebar hr {
+  border: 0;
+  height: 1px;
+  background: #ccc;
+  width: 85%;
+}
+.personal-settings h3 {
+  font-size: 13px;
+  margin: 20px 0;
+  color: #5a5a5a;
+}
+.personal-settings img {
+  width: 20px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.personal-settings button {
+  display: block;
+  margin: 0 auto;
+  height: auto;
+}
+.small-sidebar {
+  width: 5%;
+}
+.small-sidebar h3 {
+  display: none;
+}
+.small-sidebar p {
+  display: none;
+}
+.small-sidebar hr {
+  width: 50%;
+  margin-bottom: 25px;
+}
+.side-link.active img {
+  padding-bottom: 2px;
+  border-bottom: 3px solid red;
+}

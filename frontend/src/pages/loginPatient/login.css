@@ -1,9 +1,10 @@
 .login-container {
-  max-width: 300px;
+  max-width: 500px;
+  height: 350px;
   margin: 40px auto;
   padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
+  background-color: var(--white);
+  border: 0;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -16,26 +17,24 @@
 
 .login-input {
   width: 100%;
-  height: 40px;
-  margin-bottom: 10px;
+  height: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gray);
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--dark-gray);
+  outline: 0;
   border-radius: 5px;
 }
 
-.login-button {
-  width: 100%;
-  height: 40px;
-  background-color: #4caf50;
-  color: #fff;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.login-btn {
+  margin-bottom: 20px;
 }
 
 .error-message {
-  color: #f44336;
+  color: red;
   font-size: 14px;
   margin-top: 10px;
 }
