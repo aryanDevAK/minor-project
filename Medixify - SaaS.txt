@@ -1,0 +1,25 @@
+Type of product - Service/Software
+
+Complexity - Complex/High
+
+Objective - Develop a unified platform leveraging AI, OCR, and blockchain to streamline hospital operations, enhance patient care, and secure medical records.
+
+Group Size - 4
+
+Title - Medixify
+
+Description - Medixify is an advanced healthcare management platform designed to streamline hospital operations, enhance patient care, and ensure data security. Leveraging cutting-edge technologies such as AI, OCR, and blockchain, Medixify integrates hospitals, medicine distributors, and testing labs under one cohesive system. This unified platform eliminates the inefficiencies of paper-based processes by introducing digital prescription writing with OCR and NLP capabilities, ensuring accurate and quick digitization of handwritten notes.
+
+Targeted outcome / Achievement - Innovation
+
+Domain/Research - Healthcare
+
+Prerequisite skills - Python Flask, MySQL, React, NLP, Ethereum, Docker
+
+SDG - 	Good Health and Well-being (SDG 3)
+	Industry, Innovation, and Infrastructure (SDG 9)
+	Reduced Inequalities (SDG 10)
+	Sustainable Cities and Communities (SDG 11)
+	Partnerships for the Goals (SDG 17)
+
+

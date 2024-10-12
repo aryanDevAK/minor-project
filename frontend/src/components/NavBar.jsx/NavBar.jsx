@@ -6,11 +6,11 @@ import logo from "../../assets/logo-color.png"
 import search_icon from "../../assets/search.png"
 import notfication from "../../assets/notification.png"
 
-const NavBar = () => {
+const NavBar = ({setsidebar}) => {
   return (
       <nav className='flex-div'>
           <div className="nav-left flex-div">
-              <img src={menu} alt="menu icon" />
+              <img src={menu} alt="menu icon" onClick={()=>setsidebar(prev => prev===false?true:false)}/>
               <Link to="/admin"><img className='logo' src={logo}/></Link>
           </div>  
           <div className="nav-middle flex-div">

@@ -1,0 +1,23 @@
+.main-card {
+  justify-content: space-between;
+}
+.card {
+  background: var(--white);
+  width: 160px;
+  height: 80px;
+  color: var(--gray);
+  text-align: center;
+  border-radius: 25px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.card img {
+  width: 35px;
+  margin: 0 10px;
+}
+.card h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.card h3 {
+  font-size: 14px;
+}

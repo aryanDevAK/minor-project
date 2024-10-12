@@ -9,14 +9,18 @@
 }
 .profile {
   margin-bottom: 10px;
-  text-align: center;
+  text-align: left;
 }
 .profile h3 {
+  text-align: center;
   font-size: 13px;
+  margin-top: 10px;
   color: var(--gray);
 }
 .profile img {
-  width: 40px;
+  display: block;
+  margin: 10px auto;
+  width: 30px;
 }
 .shortcut-link {
   margin-top: 10px;
@@ -46,14 +50,9 @@
 }
 .personal-settings img {
   width: 20px;
-  border-radius: 50%;
   margin-right: 20px;
 }
-.personal-settings button {
-  display: block;
-  margin: 0 auto;
-  height: auto;
-}
+
 .small-sidebar {
   width: 5%;
 }
@@ -67,7 +66,11 @@
   width: 50%;
   margin-bottom: 25px;
 }
-.side-link.active img {
+.small-sidebar .profile-img {
+  margin: 0;
+}
+.side-link.active img,
+.personal-settings .active img {
   padding-bottom: 2px;
-  border-bottom: 3px solid red;
+  border-bottom: 3px solid var(--blue);
 }

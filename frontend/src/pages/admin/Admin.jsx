@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'; // Changed useHistory to u
 import axios from 'axios';
 import NavBar from '../../components/NavBar.jsx/NavBar';
 import Sidebar from '../../components/sidebar/Sidebar';
+import AdminHome from '../adminHome/AdminHome';
+import "./admin.css"
 
 const AdminDashboard = () => {
   // const [username, setUsername] = useState('');
@@ -103,13 +105,16 @@ const AdminDashboard = () => {
   //   </div>
   // );
 
-  
+  const [sidebar, setSidebar] = useState(true)
+  const [activeComponent, setActiveComponent] = useState("Dashboard")
+
   return (
     <div className="admin-dashboard">
-
-      <NavBar />
-      <h3>Admin Dashboard</h3>
-      <Sidebar />
+      <NavBar setsidebar={setSidebar}/>
+      <Sidebar sidebar={sidebar} setActiveComponent={setActiveComponent} activeComponent={activeComponent} />
+      <div className="container">
+        <AdminHome activeComponent={activeComponent} />
+      </div>
     </div>
   )
 };

@@ -9,6 +9,8 @@
   color: var(--gray);
 }
 .login-card h2 {
+  font-size: 20px;
+  font-weight: 700;
   margin-top: 10px;
   text-align: left;
 }
@@ -19,5 +21,6 @@
   padding: 10px 0;
 }
 .login-card button {
-  margin: 50px auto;
+  display: block;
+  margin: 20px auto;
 }

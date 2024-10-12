@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
   --blue: #3290ed; /* Light blue */
   --dark-blue: #093594; /* Darker blue */
@@ -37,6 +40,7 @@ button {
   background: var(--blue);
   font-size: 16px;
   font-weight: 700;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .btn:hover {
   background: var(--dark-blue);

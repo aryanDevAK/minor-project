@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import "../loginPatient/login.css";
+import Notification from '../../components/notification/Notification';
 
 const LoginPageStaff = () => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState(""); // New state for notification message
   const navigate = useNavigate(); // Replaced useHistory with useNavigate
 
   const handleLogin = async (e) => {
@@ -30,27 +32,33 @@ const LoginPageStaff = () => {
         const responseData = await response.json();
         localStorage.setItem('access_token', responseData.access_token);
         localStorage.setItem('refresh_token', responseData.refresh_token);
-        alert(`Login successful! ${responseData.message}`);
-
+        
+        // Set notification for success
+        setNotificationMessage(`Login successful! ${responseData.message}`);
+        setTimeout(() => setNotificationMessage(""), 4000);
         // Redirect based on the role
         const role = responseData.role;
         if (role === 'admin') {
-          navigate('/admin'); // Replaced history.push with navigate
+          navigate('/admin');
         } else if (role === 'doctor') {
-          navigate('/doctor-dashboard'); // Replaced history.push with navigate
+          navigate('/doctor-dashboard');
         } else if (role === 'nurse') {
-          navigate('/nurse-dashboard'); // Replaced history.push with navigate
+          navigate('/nurse-dashboard');
         } else if (role === 'staff') {
-          navigate('/staff-dashboard'); // Replaced history.push with navigate
+          navigate('/staff-dashboard');
         } else {
           setError('Unknown role: Unable to redirect.');
         }
       } else {
         const responseData = await response.json();
-        setError(`Login failed: ${responseData.message}`);
+        setError(`${responseData.message}`);
+        setNotificationMessage(`${responseData.message}`); // Set notification for error
+        setTimeout(() => setNotificationMessage(""), 4000);
       }
     } catch (error) {
-      setError(`Login failed: ${error.message}`);
+      setError(`${error.message}`);
+      setNotificationMessage(`${error.message}`); // Set notification for error
+      setTimeout(() => setNotificationMessage(""), 4000);
     }
   };
 
@@ -73,8 +81,8 @@ const LoginPageStaff = () => {
         />
         <button type="submit" className="btn login-btn">Login</button>
         <p>Forgot Password?</p>
-        {error && <div className="error-message">{error}</div>}
       </form>
+      {notificationMessage && <Notification message={notificationMessage} type={error ? 'error' : 'success'} />}
     </div>
   );
 };
