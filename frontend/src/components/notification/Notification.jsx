@@ -1,7 +1,7 @@
 import React from 'react'
 import "./notification.css"
 
-const Notification = ({message, type = 'success'}) => {
+const Notification = ({message,type}) => {
   return (
       <div>
           <div className={`notification ${type}`}>

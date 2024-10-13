@@ -8,30 +8,7 @@ from models.user import User
 from models.department import Department
 from datetime import datetime, date
 import sqlalchemy
-
-def str_to_date(birth_date):
-    try:
-        birth_date = datetime.strptime(birth_date, '%Y-%m-%d').date()
-        return birth_date
-    except ValueError:
-        return jsonify({"error": "Invalid birth_date format. Use YYYY-MM-DD."}), 400
-
-def has_required_role(required_roles):
-    identity = get_jwt_identity()  # Get the identity from the JWT
-
-    # Check if identity is a dictionary and has the expected keys
-    if isinstance(identity, dict):
-        user_id = identity.get("id")
-        user_role = identity.get("role")
-
-        # Validate that user_id and user_role exist
-        if user_id is None or user_role is None:
-            return False
-
-        # Check if the user's role is in the required roles
-        return user_role in required_roles
-    
-    return False  # Return False if identity is not a dictionary
+from routes.helper_function import str_to_date, has_required_role
 
 doctor_routes_bp = Blueprint("doctor_routes", __name__)
 @doctor_routes_bp.route("/register/doctor", methods=["POST"])
@@ -147,7 +124,6 @@ def get_doctor(doctor_id):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Update Doctor
 @doctor_routes_bp.route("/doctor/<string:doctor_id>", methods=["PUT","PATCH"])
 @jwt_required()
 def update_doctor(doctor_id):
@@ -195,7 +171,6 @@ def update_doctor(doctor_id):
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
-# Delete Doctor
 @doctor_routes_bp.route("/doctor/<string:doctor_id>", methods=["DELETE"])
 @jwt_required()
 def delete_doctor(doctor_id):

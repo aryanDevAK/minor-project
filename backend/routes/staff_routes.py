@@ -8,25 +8,8 @@ from models.department import Department
 from models.staffDept import Staff_Dept
 from datetime import datetime
 import sqlalchemy
+from routes.helper_function import str_to_date, has_required_role
 
-def str_to_date(birth_date):
-    try:
-        return datetime.strptime(birth_date, '%Y-%m-%d').date()
-    except ValueError:
-        return jsonify({"error": "Invalid birth_date format. Use YYYY-MM-DD."}), 400
-
-def has_required_role(required_roles):
-    identity = get_jwt_identity()  
-    if isinstance(identity, dict):
-        user_id = identity.get("id")
-        user_role = identity.get("role")
-
-        if user_id is None or user_role is None:
-            return False
-
-        return user_role in required_roles
-    
-    return False
 
 staff_routes_bp = Blueprint("register_staff", __name__)
 @staff_routes_bp.route("/register/staff", methods=["POST"])

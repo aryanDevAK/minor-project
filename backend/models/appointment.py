@@ -23,10 +23,3 @@ class Appointment(db.Model):
         super().__init__(**kwargs)  
         if not self.id:
             self.id = generate_custom_id(Appointment, 'AP')
-
-    def to_json():
-        return {
-            "id" : self.id,
-            "date": self.date,
-            "time": self.time
-        }

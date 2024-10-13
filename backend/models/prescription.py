@@ -1,4 +1,3 @@
-# models/Prescription.py
 from models.dbConfig import db
 from datetime import date
 
@@ -17,8 +16,8 @@ class Prescription(db.Model):
     __tablename__ = 'prescriptions'
     
     id = db.Column(db.String(10), primary_key=True)
-    medications = db.Column(db.String(255), nullable=False)
-    dosage = db.Column(db.String(255), default=NULL)
+    medications = db.Column(db.String(255), default="NULL")
+    dosage = db.Column(db.String(255), default="NULL")
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

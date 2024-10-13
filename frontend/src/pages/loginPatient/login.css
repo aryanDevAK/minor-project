@@ -38,3 +38,15 @@
   font-size: 14px;
   margin-top: 10px;
 }
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* To make it cover the entire screen */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(211, 211, 211, 0.7); /* Light gray color with opacity */
+  z-index: 1000; /* Make sure it appears above other elements */
+}

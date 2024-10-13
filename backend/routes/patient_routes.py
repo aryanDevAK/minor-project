@@ -49,7 +49,6 @@ def register_patient():
         db.session.rollback()
         return jsonify({"error": "An unexpected error occurred: " + str(e)}), 500
 
-
 @patient_routes_bp.route("/get/patients", methods=["GET"])
 @jwt_required()
 def get_patients():
@@ -70,7 +69,6 @@ def get_patients():
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 @patient_routes_bp.route("/get/patient/<string:identifier>", methods=["GET"])
 @jwt_required()
@@ -98,7 +96,6 @@ def get_patient(identifier):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 @patient_routes_bp.route("/update/patient/<string:identifier>", methods=["PUT", "PATCH"])
 @jwt_required()
 def update_patient(identifier):
@@ -106,7 +103,6 @@ def update_patient(identifier):
         return jsonify({"message" : "You do not have permission to do that"}), 403
 
     try:
-        # Fetch patient by either ID or mobile number
         patient = Patient.query.join(Patient_Mobile_Num, Patient.id == Patient_Mobile_Num.id) \
             .filter((Patient.id == identifier) | (Patient_Mobile_Num.mobile_num == identifier)).first()
 
@@ -133,7 +129,6 @@ def update_patient(identifier):
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
-
 @patient_routes_bp.route("/delete/patient", methods=["DELETE"])
 @jwt_required()
 def delete_patient():
@@ -141,14 +136,12 @@ def delete_patient():
         return jsonify({"message": "You do not have permission to do that"}), 403
 
     try:
-        # Get the patient_id and/or mobile_num from the request
         patient_id = request.json.get("id")
         mobile_num = request.json.get("mobile-num")
 
         if not patient_id and not mobile_num:
             return jsonify({"error": "Please provide either 'id' or 'mobile-num' to delete the patient"}), 400
 
-        # Deleting by patient ID
         if patient_id:
             patient = Patient.query.filter_by(id=patient_id).first()
             if not patient:

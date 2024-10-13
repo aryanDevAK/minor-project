@@ -16,7 +16,7 @@ class Lab_Report(db.Model):
     __tablename__ = 'lab_report'
     
     id = db.Column(db.String(10), primary_key=True)
-    test_report = db.Column(db.LargeBinary, nullable=False)  #LargeBinary for storing the PDF data
+    test_report = db.Column(db.String(255), nullable=False)  #LargeBinary for storing the PDF data
     test_name = db.Column(db.String(50), nullable=False)
     test_date = db.Column(db.Date, nullable=False, default=date.today)
     
