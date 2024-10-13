@@ -25,8 +25,8 @@ CORS(app)
 db.init_app(app)
 
 app.config["JWT_SECRET_KEY"] = "abcdefghijklmnopqrstuvwxyz"
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=1)
-app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=10)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
+app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=1)
 jwt = JWTManager(app)
 
 
