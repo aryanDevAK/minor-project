@@ -70,7 +70,6 @@ def get_staff():
         staff_members = db.session.query(
             Staff.id, 
             Staff.name, 
-            Staff.birth_date, 
             Staff.gender, 
             Staff.mobile_num, 
             User.email, 
@@ -84,7 +83,6 @@ def get_staff():
         staff_list = [{
             "id": staff_member.id,
             "name": staff_member.name,
-            "birth_date": staff_member.birth_date,
             "gender": staff_member.gender,
             "mobile_num": staff_member.mobile_num,
             "email": staff_member.email,
@@ -103,8 +101,7 @@ def get_staff_member(staff_id):
     try:
         staff_member = db.session.query(
             Staff.id, 
-            Staff.name, 
-            Staff.birth_date, 
+            Staff.name,  
             Staff.gender, 
             Staff.mobile_num, 
             User.email, 
@@ -121,7 +118,6 @@ def get_staff_member(staff_id):
         staff_info = {
             "id": staff_member.id,
             "name": staff_member.name,
-            "birth_date": staff_member.birth_date.strftime('%d-%m-%Y'),
             "gender": staff_member.gender,
             "mobile_num": staff_member.mobile_num,
             "email": staff_member.email,
