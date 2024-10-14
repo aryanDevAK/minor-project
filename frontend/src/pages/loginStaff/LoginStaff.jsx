@@ -22,7 +22,7 @@ const LoginPageStaff = () => {
         id: userId,
         password: password
       };
-      const url = 'http://localhost:5000/login';
+      const url = 'https://minor-project-dxsv.onrender.com/login'
       const options = {
         method: "POST",
         body: JSON.stringify(data),

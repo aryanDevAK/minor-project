@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash
 from models.dbConfig import db
@@ -20,7 +20,7 @@ def register_staff():
 
     try:
         name = request.json.get("name")
-        birth_date_str = request.json.get("birth-date")
+        birth_date_str = request.json.get("birth_date")
         gender = request.json.get("gender")
         mobile_num = request.json.get("mobile_num")
         email = request.json.get("email")
@@ -49,8 +49,7 @@ def register_staff():
         db.session.add(new_assignment)
         db.session.commit()
 
-        # return jsonify({"id": new_staff.id,"name": new_staff.name,"birth_date": new_staff.birth_date.strftime('%Y-%m-%d'),"gender": new_staff.gender,"mobile_num": new_staff.mobile_num,"email": new_user.email,"role": new_user.role}), 201
-        return jsonify({"message":"User registered successfully"})
+        return jsonify({"message":"User registered successfully"}), 201
 
     except sqlalchemy.exc.IntegrityError:
         db.session.rollback()
