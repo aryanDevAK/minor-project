@@ -121,7 +121,7 @@ def get_staff_member(staff_id):
         staff_info = {
             "id": staff_member.id,
             "name": staff_member.name,
-            "birth_date": staff_member.birth_date.strftime('%Y-%m-%d'),
+            "birth_date": staff_member.birth_date.strftime('%d-%m-%Y'),
             "gender": staff_member.gender,
             "mobile_num": staff_member.mobile_num,
             "email": staff_member.email,
