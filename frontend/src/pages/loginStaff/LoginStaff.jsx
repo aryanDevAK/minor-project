@@ -22,7 +22,7 @@ const LoginPageStaff = () => {
         id: userId,
         password: password
       };
-      const url = 'https://minor-project-dxsv.onrender.com/login'
+      const url = 'http://127.0.0.1:5000/login'
       const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -39,7 +39,7 @@ const LoginPageStaff = () => {
 
         // Set notification for success
         setNotificationMessage(`Login successful! ${responseData.message}`);
-        setTimeout(() => setNotificationMessage(""), 4000);
+        setTimeout(() => setNotificationMessage(""), 2000);
         // Redirect based on the role
         const role = responseData.role;
         if (role === 'admin') {
@@ -57,12 +57,12 @@ const LoginPageStaff = () => {
         const responseData = await response.json();
         setError(`${responseData.message}`);
         setNotificationMessage(`${responseData.message}`); // Set notification for error
-        setTimeout(() => setNotificationMessage(""), 4000);
+        setTimeout(() => setNotificationMessage(""), 2000);
       }
     } catch (error) {
       setError(`${error.message}`);
       setNotificationMessage(`${error.message}`); // Set notification for error
-      setTimeout(() => setNotificationMessage(""), 4000);
+      setTimeout(() => setNotificationMessage(""), 2000);
     } finally {
       setLoading(false); // Set loading to false when request finishes
     }
