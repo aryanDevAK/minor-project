@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./sidebar.css"
 import profile_pic from "../../assets/account.png"
 import dashboard from "../../assets/dashboard.png"
@@ -13,13 +13,20 @@ import reports from "../../assets/reports.png"
 import labs from "../../assets/labs.png"
 import pharmacy from "../../assets/pharmacy.png"
 import logout from "../../assets/logout.png"
+import { useNavigate } from 'react-router-dom'
 
-const Sidebar = ({sidebar, setActiveComponent, activeComponent}) => {
-  return (
+const Sidebar = ({ sidebar, setActiveComponent, activeComponent, userData }) => {
+    const navigate = useNavigate(); 
+    const handleLogout = () => {
+      localStorage.removeItem('access_token');
+      navigate("/login");
+    };
+
+    return (
       <div className={`sidebar ${sidebar?"":"small-sidebar"}`}>
           <div className="profile">
-          <img src={profile_pic} alt="profile-picture" className='profile-img' />
-              <h3>Welcome John Doe</h3>
+              <h2>Welcome, {userData.username ? userData.username : ""}</h2>
+              <h3>{userData.email ? userData.email : "" }</h3>
           </div>
           <hr />
           <div className="shortcut-link">
@@ -60,7 +67,7 @@ const Sidebar = ({sidebar, setActiveComponent, activeComponent}) => {
               <div className={`side-link ${activeComponent==="Settings"?"active":""}`} onClick={() => setActiveComponent('Settings')}>
                   <img src={settings} alt="" /><p>Settings</p>
               </div>
-              <div className="side-link">
+              <div className="side-link" onClick={handleLogout}> 
                   <img src={logout} alt="" /><p>Logout</p>
               </div>
           </div>

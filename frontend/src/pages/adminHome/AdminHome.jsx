@@ -3,6 +3,7 @@ import "./adminhome.css"
 import Counter from '../../components/counter/Counter'
 import Dashboard from '../../components/home-component/Dashboard'
 import Patient from '../../components/Patient/Patient'
+import Doctor from '../../components/doctor/Doctor'
 
 const AdminHome = ({ activeComponent }) => {
     const renderComponent = () => {
@@ -12,7 +13,7 @@ const AdminHome = ({ activeComponent }) => {
           case 'Patient':
             return <Patient />;
           case 'Nurse':
-            return <Patient />;
+            return <Doctor/>;
           case 'Doctor':
             return <Patient />;
           case 'Staff':
@@ -35,7 +36,6 @@ const AdminHome = ({ activeComponent }) => {
       };
     return (
         <>
-            <Counter />
             <div className="admin-home-div">{renderComponent()}</div>
         </>
   )

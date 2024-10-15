@@ -1,9 +1,12 @@
 import React from 'react'
 import "./dashboard.css"
+import Counter from '../counter/Counter'
 
 const HomeComponent = () => {
   return (
-    <div>DashBoard</div>
+    <div>
+      <Counter/>
+    </div>
   )
 }
 

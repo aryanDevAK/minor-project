@@ -12,17 +12,40 @@ const LoginPageStaff = () => {
   const [notificationMessage, setNotificationMessage] = useState(""); // For notification message
   const [loading, setLoading] = useState(false); // New state for loader
   const navigate = useNavigate(); // Replaced useHistory with useNavigate
+  
+  const fetchUserData = async (userId) => {
+    const token = localStorage.getItem('access_token');
+    if (!token || !userId) return;
+  
+    try {
+      const response = await axios.get(`https://minor-project-dxsv.onrender.com/get/staff/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}` 
+        }
+      });
+  
+      if (response.data) {
+        const { name, email, role } = response.data; 
+        localStorage.setItem('user_name', name);
+        localStorage.setItem('user_email', email);
+        localStorage.setItem('user_role', role);
+      }
+    } catch (error) {
+      console.error('Failed to fetch user data:', error);
+      setError('Failed to retrieve user information');
+    }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true); // Set loading to true when login starts
-    setError(null); // Reset error message
+    setLoading(true); 
+    setError(null);
     try {
       const data = {
         id: userId,
         password: password
       };
-      const url = 'http://127.0.0.1:5000/login'
+      const url = 'https://minor-project-dxsv.onrender.com/login'
       const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -36,11 +59,13 @@ const LoginPageStaff = () => {
         const responseData = await response.json();
         localStorage.setItem('access_token', responseData.access_token);
         localStorage.setItem('refresh_token', responseData.refresh_token);
+        localStorage.setItem('user_id', userId);
 
-        // Set notification for success
+        await fetchUserData(userId); 
+        
         setNotificationMessage(`Login successful! ${responseData.message}`);
         setTimeout(() => setNotificationMessage(""), 2000);
-        // Redirect based on the role
+
         const role = responseData.role;
         if (role === 'admin') {
           navigate('/admin');

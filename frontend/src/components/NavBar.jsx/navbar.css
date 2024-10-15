@@ -37,4 +37,8 @@ nav {
 .nav-right img {
   width: 25px;
   margin-right: 25px;
+  margin-left: 20px;
+}
+.nav-right h3 {
+  font-weight: 700;
 }

@@ -6,7 +6,7 @@ from models.patient_mobile_num import Patient_Mobile_Num, Patient_User
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlalchemy.exc
 from datetime import datetime, date
-from routes.helper_function import str_to_date, has_required_role
+from routes.helper_function import  has_required_role
 
 patient_routes_bp = Blueprint("register_patient", __name__)
 @patient_routes_bp.route("/register/patient", methods=["POST"])
@@ -17,17 +17,20 @@ def register_patient():
 
     try:
         name = request.json.get("name")
-        birth_date_str = request.json.get("birth-date")
+        birth_date = request.json.get("birth-date")
         mobile_num = request.json.get("mobile-num")
 
-        if not name or not birth_date_str or not mobile_num:
+        if not name or not birth_date or not mobile_num:
             return jsonify({"error": "All fields are required"}), 400
         
         patient_exists = Patient_User.query.filter_by(mobile_num=mobile_num).first() is not None
         if patient_exists:
             return jsonify({"error": "Mobile Number exists. You can directly login"}), 409
 
-        birth_date = str_to_date(birth_date_str)
+        try:
+            birth_date = datetime.strptime(birth_date, '%Y-%m-%d').date()
+        except ValueError:
+            return jsonify({"error": "Invalid date format"}), 400
 
         new_patient = Patient(name=name, birth_date=birth_date)
         db.session.add(new_patient)
@@ -56,12 +59,14 @@ def get_patients():
         patients = db.session.query(
             Patient.id,
             Patient.name,
+            Patient.birth_date,
             Patient_Mobile_Num.mobile_num
         ).join(Patient_Mobile_Num, Patient.id == Patient_Mobile_Num.id).all()
 
         patient_list = [{
             "id": patient.id,
             "name": patient.name,
+            "birth_date":patient.birth_date.strftime('%Y-%m-%d'),
             "mobile_num": patient.mobile_num
         } for patient in patients]
 
@@ -78,6 +83,7 @@ def get_patient(identifier):
         patient = db.session.query(
             Patient.id,
             Patient.name,
+            Patient.birth_date,
             Patient_Mobile_Num.mobile_num
         ).join(Patient_Mobile_Num, Patient.id == Patient_Mobile_Num.id) \
          .filter((Patient.id == identifier) | (Patient_Mobile_Num.mobile_num == identifier)).first()
@@ -88,6 +94,7 @@ def get_patient(identifier):
         patient_info = {
             "id": patient.id,
             "name": patient.name,
+            "birth_date":patient.birth_date.strftime('%Y-%m-%d'),
             "mobile_num": patient.mobile_num
         }
 
@@ -129,44 +136,46 @@ def update_patient(identifier):
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
-@patient_routes_bp.route("/delete/patient", methods=["DELETE"])
+@patient_routes_bp.route("/delete/patient/<string:identifier>", methods=["DELETE"])
 @jwt_required()
-def delete_patient():
+def delete_patient(identifier):
     if not has_required_role(["admin"]):
         return jsonify({"message": "You do not have permission to do that"}), 403
 
     try:
-        patient_id = request.json.get("id")
-        mobile_num = request.json.get("mobile-num")
-
-        if not patient_id and not mobile_num:
-            return jsonify({"error": "Please provide either 'id' or 'mobile-num' to delete the patient"}), 400
-
-        if patient_id:
-            patient = Patient.query.filter_by(id=patient_id).first()
-            if not patient:
-                return jsonify({"error": "Patient with the provided ID not found"}), 404
+        patient = Patient.query.filter_by(id=identifier).first()
+        
+        if patient:
             patient_num = Patient_Mobile_Num.query.filter_by(id=patient.id).first()
 
-        # Deleting by mobile number
-        elif mobile_num:
-            patient_num = Patient_Mobile_Num.query.filter_by(mobile_num=mobile_num).first()
-            if not patient_num:
-                return jsonify({"error": "Patient with the provided mobile number not found"}), 404
-            # Retrieve the associated patient using the patient_id from the mobile number record
-            patient = Patient.query.filter_by(id=patient_num.id).first()
-
-        # Proceed with deletion
-        if patient:
-            # Delete the patient record from related tables
-            Patient_Mobile_Num.query.filter_by(id=patient.id).delete()  # Delete from Patient_Mobile_Num
-            Patient_User.query.filter_by(mobile_num=patient_num.mobile_num).delete()  # Delete from Patient_User
+            if patient_num:
+                Patient_Mobile_Num.query.filter_by(id=patient.id).delete() 
+                Patient_User.query.filter_by(mobile_num=patient_num.mobile_num).delete()
             
-            db.session.delete(patient)  # Delete from Patient table
+            db.session.delete(patient)  
             db.session.commit()
 
             return jsonify({"message": "Patient deleted successfully"}), 200
 
+        else:
+            patient_num = Patient_Mobile_Num.query.filter_by(mobile_num=identifier).first()
+            if not patient_num:
+                return jsonify({"error": "Patient with the provided identifier not found"}), 404
+            
+            patient = Patient.query.filter_by(id=patient_num.id).first()
+
+            if patient:
+                Patient_Mobile_Num.query.filter_by(id=patient.id).delete()  # Delete from Patient_Mobile_Num
+                Patient_User.query.filter_by(mobile_num=patient_num.mobile_num).delete()  # Delete from Patient_User
+            
+                db.session.delete(patient)  
+                db.session.commit()
+
+                return jsonify({"message": "Patient deleted successfully"}), 200
+
+            return jsonify({"error": "Patient not found"}), 404
+
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
+

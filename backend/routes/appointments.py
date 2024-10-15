@@ -26,7 +26,7 @@ def create_appointment():
 
         # Validate input fields
         if not all([patient_id, doc_id, room_id, appointment_date, appointment_time]):
-            return jsonify({"error": "All fields (patient_id, doc_id, room_id, date, time) are required"}), 400
+            return jsonify({"error": "All fields are required"}), 400
 
         # Parse the date and time strings
         try:
@@ -233,6 +233,41 @@ def get_appointments_by_doctor(doctor_id):
             "time": appointment.time.strftime('%H:%M:%S'),
             "room_number": appointment.room_id,
             "patient_name": appointment.patient_name
+        } for appointment in appointments]
+
+        return jsonify(appointment_list), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@appointment_bp.route('/appointments/today', methods=['GET'])
+@jwt_required()
+def get_today_appointments():
+    try:
+        today_date = datetime.today().date()  # Get today's date
+
+        appointments = db.session.query(
+            Appointment.id,
+            Appointment.date,
+            Appointment.time,
+            Patient_Doc_Room_Appointment.room_id,
+            Patient_Doc_Room_Appointment.doc_id,
+            Patient_Doc_Room_Appointment.patient_id
+        ).join(Patient_Doc_Room_Appointment, Appointment.id == Patient_Doc_Room_Appointment.appointment_id) \
+         .filter(Appointment.date == today_date) \
+         .all()
+
+        if not appointments:
+            return jsonify({"message": "No appointments scheduled for today."}), 404
+
+        appointment_list = [{
+            "appointment_id": appointment.id,
+            "date": appointment.date.strftime('%Y-%m-%d'),
+            "time": appointment.time.strftime('%H:%M:%S'),
+            "room_id": appointment.room_id,
+            "doctor_id": appointment.doc_id,
+            "patient_id": appointment.patient_id
         } for appointment in appointments]
 
         return jsonify(appointment_list), 200

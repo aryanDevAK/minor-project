@@ -19,14 +19,14 @@ def register_doctor():
 
     try:
         name = request.json.get("name")
-        birth_date_str = request.json.get("birth-date")
+        birth_date = request.json.get("birth-date")
         speciality = request.json.get("speciality")
         email = request.json.get("email")
         password = request.json.get("password")
         department_id = request.json.get("department_id")
         role = "doctor"
 
-        if not all([name, email, password, birth_date_str, speciality, department_id]):
+        if not all([name, email, password, birth_date, speciality, department_id]):
             return jsonify({"message": "All fields are required"}), 400
 
         if User.query.filter_by(email=email).first():
@@ -35,7 +35,11 @@ def register_doctor():
         if not Department.query.filter_by(id=department_id).first():
             return jsonify({"error": "Department not exists"}), 404
 
-        birth_date = str_to_date(birth_date_str)
+        try:
+            birth_date = datetime.strptime(birth_date, '%Y-%m-%d').date()
+        except ValueError:
+            return jsonify({"error": "Invalid date format"}), 400
+
         hashed_password = generate_password_hash(password)
 
         new_doctor = Doctor(name=name, birth_date=birth_date, speciality=speciality)
@@ -79,7 +83,7 @@ def get_doctors():
         doctor_list = [{
             "id" : doctor.id,
             "name" : doctor.name,
-            "birth_date" : doctor.birth_date,
+            "birth_date":doctor.birth_date.strftime('%Y-%m-%d'),
             "speciality" : doctor.speciality,
             "email" : doctor.email,
             "department" : doctor.department_name
@@ -113,7 +117,7 @@ def get_doctor(doctor_id):
         doctor_info = {
             "id": doctor.id,
             "name": doctor.name,
-            "birth_date": doctor.birth_date,
+            "birth_date":doctor.birth_date.strftime('%Y-%m-%d'),
             "speciality": doctor.speciality,
             "email": doctor.email,
             "department": doctor.department_name
@@ -124,7 +128,7 @@ def get_doctor(doctor_id):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@doctor_routes_bp.route("/doctor/<string:doctor_id>", methods=["PUT","PATCH"])
+@doctor_routes_bp.route("/update/doctor/<string:doctor_id>", methods=["PUT","PATCH"])
 @jwt_required()
 def update_doctor(doctor_id):
     if not has_required_role(["admin"]):
@@ -136,7 +140,7 @@ def update_doctor(doctor_id):
             return jsonify({"error": "User not found"}), 404
 
         name = request.json.get("name")
-        birth_date_str = request.json.get("birth-date")
+        birth_date = request.json.get("birth-date")
         speciality = request.json.get("speciality")
         department_id = request.json.get("department_id")
         email = request.json.get("email")
@@ -144,8 +148,13 @@ def update_doctor(doctor_id):
         if name:
             doctor.name = name
         
-        if birth_date_str:
-            doctor.birth_date = str_to_date(birth_date_str)
+        if birth_date:
+            try:
+                birth_date = datetime.strptime(birth_date, '%Y-%m-%d').date()
+                doctor.birth_date = birth_date
+            except ValueError:
+                return jsonify({"error": "Invalid date format"}), 400
+            
         
         if speciality:
             doctor.speciality = speciality
@@ -171,7 +180,7 @@ def update_doctor(doctor_id):
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
-@doctor_routes_bp.route("/doctor/<string:doctor_id>", methods=["DELETE"])
+@doctor_routes_bp.route("/delete/doctor/<string:doctor_id>", methods=["DELETE"])
 @jwt_required()
 def delete_doctor(doctor_id):
     if not has_required_role(["admin"]):

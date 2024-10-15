@@ -13,6 +13,13 @@
 body {
   background: var(--light-gray);
 }
+body::-webkit-scrollbar {
+  width: 6px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
 * {
   margin: 0;
   padding: 0;
@@ -53,4 +60,15 @@ button {
 .btn-border:hover {
   border: 2px solid var(--dark-blue);
   color: var(--dark-blue);
+}
+h2 {
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 10px;
+  color: var(--gray);
+}
+h3 {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--gray);
 }

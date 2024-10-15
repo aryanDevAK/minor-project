@@ -6,16 +6,18 @@
   top: 0;
   padding-left: 2%;
   padding-top: 80px;
+  overflow-y: auto;
 }
 .profile {
   margin-bottom: 10px;
   text-align: left;
 }
+.profile h2 {
+  text-align: center;
+  margin-top: 10px;
+}
 .profile h3 {
   text-align: center;
-  font-size: 13px;
-  margin-top: 10px;
-  color: var(--gray);
 }
 .profile img {
   display: block;
@@ -36,6 +38,10 @@
   width: fit-content;
   flex-wrap: wrap;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.side-link:hover {
+  transform: scale(1.1);
 }
 .sidebar hr {
   border: 0;
@@ -56,7 +62,8 @@
 .small-sidebar {
   width: 5%;
 }
-.small-sidebar h3 {
+.small-sidebar h3,
+.small-sidebar h2 {
   display: none;
 }
 .small-sidebar p {
@@ -73,4 +80,11 @@
 .personal-settings .active img {
   padding-bottom: 2px;
   border-bottom: 3px solid var(--blue);
+}
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
 }

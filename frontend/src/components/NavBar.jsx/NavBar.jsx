@@ -6,7 +6,7 @@ import logo from "../../assets/logo-color.png"
 import search_icon from "../../assets/search.png"
 import notfication from "../../assets/notification.png"
 
-const NavBar = ({setsidebar}) => {
+const NavBar = ({setsidebar,userid}) => {
   return (
       <nav className='flex-div'>
           <div className="nav-left flex-div">
@@ -19,7 +19,8 @@ const NavBar = ({setsidebar}) => {
                 <img src={search_icon} />
               </div>
           </div>
-          <div className="nav-right flex-div">
+      <div className="nav-right flex-div">
+        <h3>{userid}</h3>
               <img src={notfication} alt="" />
           </div>
     </nav>

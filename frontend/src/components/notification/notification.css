@@ -1,14 +1,18 @@
 .notification {
   position: fixed;
-  bottom: 20px; /* Distance from the bottom */
-  right: 20px; /* Distance from the right */
-  background-color: #4caf50; /* Green background for success */
-  color: white; /* Text color */
-  padding: 15px 25px; /* Padding around the notification */
-  border-radius: 5px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-  z-index: 1000; /* Make sure it shows above other content */
-  animation: fadeIn 0.5s ease, fadeOut 0.5s ease 4s; /* Fade in and fade out after 4 seconds */
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--blue);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  animation: fadeIn 0.5s ease, fadeOut 0.5s ease 4s;
+}
+.notification h3 {
+  color: var(--white);
+  font-weight: 600;
 }
 
 /* Fade-in and fade-out animation */
@@ -30,9 +34,9 @@
   }
 }
 .notification.success {
-  background-color: #4caf50; /* Green for success */
+  background-color: var(--dark-blue);
 }
 
 .notification.error {
-  background-color: #f44336; /* Red for error */
+  background-color: #f44336;
 }
