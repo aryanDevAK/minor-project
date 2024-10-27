@@ -12,6 +12,7 @@ import doctor from "./assets/sthetescope.png"
 import person1 from "./assets/person1.png"
 import nurse from "./assets/nurse.png"
 import logo from "./assets/logo-black.png"
+import PatientDashboard from './pages/patientDashboard/PatientDashboard';
 
 function App() {
   const [loginPage, setLoginPage] = useState(null);
@@ -47,6 +48,7 @@ function App() {
 
           {/* Dashboard routes */}
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/patient-dashboard" element={<PatientDashboard/>} />
           {/* Uncomment and add other dashboard routes as needed */}
           {/* <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
           <Route path="/nurse-dashboard" element={<NurseDashboard />} />

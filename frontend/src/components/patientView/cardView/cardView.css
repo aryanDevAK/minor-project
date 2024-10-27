@@ -1,0 +1,36 @@
+.cardView {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.cardView-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 250px;
+  height: 150px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  position: relative;
+}
+
+.cardView-card:hover {
+  transform: scale(1.05);
+}
+
+.cardView-info {
+  padding: 10px;
+}
+
+.cardView-card h3 {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.cardView-info p {
+  margin: 3px 0;
+  color: #555;
+}

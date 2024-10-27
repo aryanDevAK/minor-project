@@ -19,6 +19,11 @@ const Sidebar = ({ sidebar, setActiveComponent, activeComponent, userData }) => 
     const navigate = useNavigate(); 
     const handleLogout = () => {
       localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('user_email');
+      localStorage.removeItem('user_id');
+        localStorage.removeItem('user_name');
+        localStorage.removeItem('user_role');
       navigate("/login");
     };
 
@@ -70,8 +75,8 @@ const Sidebar = ({ sidebar, setActiveComponent, activeComponent, userData }) => 
               <div className="side-link" onClick={handleLogout}> 
                   <img src={logout} alt="" /><p>Logout</p>
               </div>
-          </div>
-    </div>
+            </div>
+        </div>
   )
 }
 

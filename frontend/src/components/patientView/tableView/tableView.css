@@ -1,0 +1,69 @@
+/* TableView.css */
+.table-container {
+  width: 100%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: var(--dark-blue);
+  color: #ffffff;
+}
+
+thead th {
+  padding: 12px;
+  font-size: 16px;
+  text-align: left;
+}
+
+tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #dddddd;
+  text-align: left;
+}
+tbody tr {
+  transition: transform 0.2s ease;
+}
+tbody tr:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 5px rgb(0, 0, 0, 0.2);
+}
+
+.operations {
+  display: flex;
+  gap: 10px;
+}
+
+.operations img {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+.operations img:hover {
+  transform: scale(1.1);
+}
+
+tbody td img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+td {
+  font-size: 14px;
+  color: #333;
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px;
+  color: #ff6347;
+}

@@ -32,7 +32,7 @@ const AdminDashboard = () => {
         activeComponent={activeComponent} 
         userData={userData} // Pass user data to sidebar
       />
-      <div className="container">
+      <div className={`container ${sidebar?"":"large-container"}`}>
         <AdminHome activeComponent={activeComponent} />
       </div>
     </div>

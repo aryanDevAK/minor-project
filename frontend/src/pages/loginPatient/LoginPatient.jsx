@@ -1,38 +1,45 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import "./login.css"
+import { useNavigate } from 'react-router-dom';
+import ClipLoader from "react-spinners/ClipLoader"; 
+import "../loginPatient/login.css";
+import Notification from '../../components/notification/Notification';
 
 const LoginPagePatient = () => {
   const [mobileNum, setMobileNum] = useState("");
   const [error, setError] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState(""); 
+  const [loading, setLoading] = useState(false); 
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true); 
+    setError(null);
     try {
-      const data = {
-        mobile_num: mobileNum
-      }
-      const url = 'http://localhost:5000/login/patient'
-      const options = {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-      const response = await fetch(url, options);
+      const data = { mobile_num: mobileNum };
+      const url = 'https://minor-project-dxsv.onrender.com/login/patient';
+      const response = await axios.post(url, data, {
+        headers: { 'Content-Type': 'application/json' }
+      });
 
-      if (response.ok) {
-        const responseData = await response.json();
-        localStorage.setItem('access_token', responseData.access_token);
-        localStorage.setItem('refresh_token', responseData.refresh_token);
-        alert(responseData.message);
-      } else {
-        const responseData = await response.json();
-        alert(responseData.message)
+      if (response.data) {
+        localStorage.setItem('access_token', response.data.access_token);
+        localStorage.setItem('refresh_token', response.data.refresh_token);
+        localStorage.setItem('mobile_num', mobileNum);
+        setNotificationMessage(`Login successful! ${response.data.message}`);
+        setTimeout(() => setNotificationMessage(""), 2000);
+        
+        // Redirect to the patient's dashboard
+        navigate('/patient-dashboard');
       }
     } catch (error) {
-      setError(`Login failed: ${error.message}`);
+      const errorMessage = error.response ? error.response.data.message : error.message;
+      setError(errorMessage);
+      setNotificationMessage(errorMessage);
+      setTimeout(() => setNotificationMessage(""), 2000);
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -45,11 +52,19 @@ const LoginPagePatient = () => {
           placeholder="Mobile Number"
           value={mobileNum}
           onChange={(e) => setMobileNum(e.target.value)}
+          disabled={loading} 
         />
-        <button type="submit" className="btn login-btn">Login</button>
+        <button type="submit" className="btn login-btn" disabled={loading}>Login</button>
         <p>Forgot Password?</p>
-        {error && <div className="error-message">{error}</div>}
       </form>
+
+      {loading && (
+        <div className="loader">
+          <ClipLoader color="#093594" size={50} />
+        </div>
+      )}
+
+      {notificationMessage && <Notification message={notificationMessage} type={error ? 'error' : 'success'} />}
     </div>
   );
 };
