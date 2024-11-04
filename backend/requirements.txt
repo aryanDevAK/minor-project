@@ -13,3 +13,4 @@ pytesseract
 pillow
 temp
 numpy
+opencv-python
