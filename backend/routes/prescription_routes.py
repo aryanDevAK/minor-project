@@ -84,6 +84,45 @@ def create_prescription():
         db.session.rollback()
         return jsonify({"error": "Database error: " + str(e)}), 500
 
+@prescription_bp.route('/prescriptions', methods=['GET'])
+@jwt_required()
+def get_all_prescriptions():
+    try:
+        prescriptions = db.session.query(
+            Prescription.id,
+            Prescription.medications,
+            Prescription.dosage,
+            Prescription_Patient_Doctor.appointment_id,
+            Doctor.name.label("doc_name"),
+            Patient.name.label("patient_name")
+        ).join(Prescription_Patient_Doctor, Prescription.id == Prescription_Patient_Doctor.prescription_id) \
+         .join(Doctor, Doctor.id == Prescription_Patient_Doctor.doc_id) \
+         .join(Patient, Patient.id == Prescription_Patient_Doctor.patient_id) \
+         .all()
+
+        # Check if there are no prescriptions
+        if not prescriptions:
+            return jsonify({"message": "No prescriptions found"}), 404
+
+        # Format the data as a list of dictionaries
+        all_prescriptions = [
+            {
+                "id": prescription.id,
+                "medications": prescription.medications,
+                "dosage": prescription.dosage,
+                "appointment_id": prescription.appointment_id,
+                "doc_name": prescription.doc_name,
+                "patient_name": prescription.patient_name
+            }
+            for prescription in prescriptions
+        ]
+
+        return jsonify(all_prescriptions), 200
+
+    except Exception as e:
+        # Handle any errors that occur
+        return jsonify({"error": str(e)}), 500
+
 @prescription_bp.route('/prescription/<string:prescription_id>', methods=['GET'])
 @jwt_required()
 def get_prescription_by_id(prescription_id):

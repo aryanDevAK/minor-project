@@ -42,7 +42,7 @@ button {
 .btn {
   padding: 10px 40px;
   color: var(--white);
-  border: 0;
+  border: 1px solid var(--blue);
   outline: 0;
   border-radius: 70px;
   background: var(--blue);
