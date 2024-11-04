@@ -24,7 +24,8 @@ body::-webkit-scrollbar-thumb {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: arial sans-serif;
+  letter-spacing: 1px;
 }
 a {
   text-decoration: none;
@@ -48,18 +49,27 @@ button {
   font-size: 16px;
   font-weight: 700;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
 }
 .btn:hover {
-  background: var(--dark-blue);
+  background: transparent;
+  border: 1px solid var(--white);
+  color: var(--white);
 }
 .btn-border {
-  border: 2px solid var(--blue);
+  border: 1px solid var(--blue);
   color: var(--blue);
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background: transparent;
+  padding: 10px 40px;
+  border-radius: 50px;
+  transition: 0.3s;
 }
 .btn-border:hover {
-  border: 2px solid var(--dark-blue);
-  color: var(--dark-blue);
+  border: 1px solid var(--dark-blue);
+  background: var(--dark-blue);
+  color: var(--white);
 }
 h2 {
   font-weight: 700;

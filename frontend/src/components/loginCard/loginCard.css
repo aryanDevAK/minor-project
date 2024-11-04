@@ -1,26 +1,31 @@
 .login-card {
-  background: var(--white);
-  padding: 20px;
-  width: 300px;
-  height: 350px;
-  margin-top: ;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: var(--gray);
+  padding: 100px;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+}
+.login-card img {
+  width: 100px;
 }
 .login-card h2 {
-  font-size: 20px;
+  font-size: 36px;
   font-weight: 700;
   margin-top: 10px;
   text-align: left;
 }
 .login-card p {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
-  text-align: left;
+  text-align: justify;
   padding: 10px 0;
 }
 .login-card button {
   display: block;
-  margin: 20px auto;
+  margin: 10px auto;
+}
+.right {
+  color: #fff;
+}
+.right h2 {
+  color: #fff;
 }

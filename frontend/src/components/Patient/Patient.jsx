@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import add_icon from "../../assets/add_box.png";
 import list_view from "../../assets/list_view.png";
 import grid_view from "../../assets/grid_view.png";
-import Counter from '../counter/Counter';
 import TableView from '../patientView/tableView/TableView';
 import ClipLoader from "react-spinners/ClipLoader";
 import Notification from '../../components/notification/Notification';
@@ -192,7 +191,6 @@ const Patient = () => {
 
     return (
         <>
-            <Counter tableData={tableData} />
             <div className='flex-div middle-div operations'>
                 <img src={add_icon} alt="" className='icon' onClick={() => {
                     setNewPatient({ name: '', birthDate: '', mobileNum: '' });

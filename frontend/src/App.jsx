@@ -8,10 +8,10 @@ import AdminDashboard from './pages/admin/Admin';
 // import StaffDashboard from './pages/StaffDashboard';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
-import doctor from "./assets/sthetescope.png"
+import doctor from "./assets/stethoscope_white.png"
 import person1 from "./assets/person1.png"
 import nurse from "./assets/nurse.png"
-import logo from "./assets/logo-black.png"
+import logo from "./assets/logo-color.png"
 import PatientDashboard from './pages/patientDashboard/PatientDashboard';
 
 function App() {
@@ -37,12 +37,15 @@ function App() {
             loginPage ? (loginPage === 'staff' ? (<LoginPageStaff />) : (<LoginPagePatient />)) : (
               <div>
                 <img className='logo-main' src={logo} alt="logo" />
-              <div className="cont">
-                <LoginCard name="Doctor" data="Login as a doctor with your id and password. Treat well!" onClick={handleLoginClick} image={doctor} />
-                <LoginCard name="Medical Staff" data="Login as a staff and ensure the operations of hospital run smoothly." onClick={handleLoginClick} image={nurse} />
-                <LoginCard name="Staff" data="Login as a staff member to access administrative services." onClick={handleLoginClick} image={person1} />
-                <LoginCard name="Patient" data="Login as a patient with your registered mobile number to monitor your health" onClick={handleLoginClick} image={person1} />
-              </div></div>
+                <div className="cont">
+                  <div className='cont-left'>
+                    <LoginCard myClass="right" name="Hospital Administration" data="Click the button below to log in using your hospital ID and password, granting you access to manage patient records and essential healthcare tasks efficiently." onClick={handleLoginClick} image={doctor} buttonname={"For Hospital Staff"} btnClass={"btn"} />
+                  </div>
+                  <div className="cont-right">
+                    <LoginCard myClass="left" name="Patient" data="Log in with your registered mobile number to access your health dashboard, monitor medical records, manage appointments, and use Medixify’s AI Assistant for health guidance and support." onClick={handleLoginClick} image={person1} buttonname={"For Patient"} btnClass={"btn-border"} />
+                  </div>
+                </div>
+              </div>
             )
           } />
 

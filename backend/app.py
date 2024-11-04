@@ -12,6 +12,7 @@ from routes.lab_report import lab_report_bp
 from routes.prescription_routes import prescription_bp
 from routes.lab_routes import lab_bp
 from routes.login import login_bp
+from routes.counter import count_routes_bp
 from routes.login_patient import login_patient_bp
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
@@ -40,6 +41,7 @@ app.register_blueprint(prescription_bp)
 app.register_blueprint(lab_bp)
 app.register_blueprint(patient_routes_bp)
 app.register_blueprint(appointment_bp)
+app.register_blueprint(count_routes_bp)
 app.register_blueprint(login_bp)
 app.register_blueprint(login_patient_bp)
 

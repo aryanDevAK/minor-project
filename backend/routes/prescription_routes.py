@@ -1,46 +1,74 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
 from models.dbConfig import db
+from PIL import Image 
+import io
+import numpy as np
 from models.prescription import Prescription
 from models.prescription_patient_doc import Prescription_Patient_Doctor
 from models.patient import Patient
 from models.doctor import Doctor
 from models.appointment import Appointment
-import sqlalchemy.exc
-from routes.helper_function import str_to_date, has_required_role
-
+from sqlalchemy.exc import SQLAlchemyError
+from routes.helper_function import prescription_processing, str_to_date, has_required_role
 
 prescription_bp = Blueprint('prescription', __name__)
 @prescription_bp.route('/prescription', methods=['POST'])
 @jwt_required()
 def create_prescription():
+    # Role verification
     if not has_required_role(["admin", "doctor", "nurse"]):
         return jsonify({"message": "You do not have permission to do that"}), 401
+
+    # Check if an image file is in the request
+    if 'image' not in request.files:
+        return jsonify({"error": "Image file is required"}), 400
+
+    image_file = request.files['image']
+    if image_file.filename == '':
+        return jsonify({"error": "No image file provided"}), 400
+
+    # Read image file and convert to a numpy array
     try:
-        patient_id = request.json.get('patient_id')
-        doc_id = request.json.get('doc_id')
-        medications = request.json.get('medications')
-        dosage = request.json.get('dosage')
-        appointment_id = request.json.get('appointment_id')
+        image_bytes = image_file.read()
+        image = Image.open(io.BytesIO(image_bytes)).convert("RGB")  # Ensure the image is in RGB format
+        image = np.array(image)  # Convert to a NumPy array
+    except Exception as e:
+        return jsonify({"error": "Invalid image file format: " + str(e)}), 400
 
-        if not patient_id or not doc_id:
-            return jsonify({"error": "All fields are required"}), 400
-        
-        patient = Patient.query.filter_by(id=patient_id).first()
-        doctor = Doctor.query.filter_by(id=doc_id).first()
-        appointment = Appointment.query.filter_by(id=appointment_id).first()
+    # Extract additional form data
+    patient_id = request.form.get('patient_id')
+    doc_id = request.form.get('doc_id')
+    dosage = request.form.get('dosage')
+    appointment_id = request.form.get('appointment_id')
 
+    # Validate required fields
+    if not patient_id or not doc_id:
+        return jsonify({"error": "Patient ID and Doctor ID are required"}), 400
+
+    try:
+        # Pass the image to the prescription processing function
+        medications = prescription_processing(image)
+
+        # Retrieve related entities from the database
+        patient = Patient.query.get(patient_id)
+        doctor = Doctor.query.get(doc_id)
+        appointment = Appointment.query.get(appointment_id) if appointment_id else None
+
+        # Check for entity existence
         if not patient:
             return jsonify({"error": "Patient not found"}), 404
         if not doctor:
             return jsonify({"error": "Doctor not found"}), 404
-        if not appointment:
+        if appointment_id and not appointment:
             return jsonify({"error": "Appointment not found"}), 404
-        
+
+        # Create a new prescription record
         new_prescription = Prescription(medications=medications, dosage=dosage)
         db.session.add(new_prescription)
         db.session.flush()
 
+        # Link the prescription to the patient and doctor
         prescription_patient_doctor = Prescription_Patient_Doctor(
             patient_id=patient_id,
             doc_id=doc_id,
@@ -52,11 +80,11 @@ def create_prescription():
 
         return jsonify({"message": "Prescription successfully created"}), 201
 
-    except sqlalchemy.exc.SQLAlchemyError as e:
+    except SQLAlchemyError as e:
         db.session.rollback()
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": "Database error: " + str(e)}), 500
 
-@prescription_bp.route('/prescription/id/<string:prescription_id>', methods=['GET'])
+@prescription_bp.route('/prescription/<string:prescription_id>', methods=['GET'])
 @jwt_required()
 def get_prescription_by_id(prescription_id):
     try:
@@ -91,7 +119,7 @@ def get_prescription_by_id(prescription_id):
         # In case of any error, return the error message
         return jsonify({"error": str(e)}), 500
 
-@prescription_bp.route('/prescription/<string:patient_id>', methods=['GET'])
+@prescription_bp.route('/prescription/patient/<string:patient_id>', methods=['GET'])
 @jwt_required()
 def get_prescriptions_by_patient(patient_id):
     try:

@@ -1,15 +1,26 @@
 .logo-main {
-  display: block;
-  margin: 50px auto;
-  max-width: 500px;
+  position: absolute;
+  top: 30px;
+  left: 40%;
+  width: 300px;
   height: auto;
 }
 .cont {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 40px;
+  height: 100vh;
+  width: 100%;
 }
-.cont > * {
-  margin: 20px;
+.cont-left {
+  flex-basis: 50%;
+  width: 100%;
+  background: rgb(27, 27, 27);
+  background: linear-gradient(
+    183deg,
+    rgba(27, 27, 27, 1) 0%,
+    rgba(9, 53, 148, 1) 100%
+  );
+}
+.cont-right {
+  flex-basis: 50%;
+  width: 100%;
 }

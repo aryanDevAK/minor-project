@@ -44,19 +44,18 @@ const LoginPagePatient = () => {
   };
 
   return (
-    <div className='login-container'>
-      <form onSubmit={handleLogin} className="login-form">
-        <input
-          type="text"
-          className="login-input"
-          placeholder="Mobile Number"
-          value={mobileNum}
-          onChange={(e) => setMobileNum(e.target.value)}
-          disabled={loading} 
-        />
-        <button type="submit" className="btn login-btn" disabled={loading}>Login</button>
-        <p>Forgot Password?</p>
-      </form>
+    <div className='login-outer'>
+      <div className="login-bg">
+        <h2>Welcome Back</h2>
+        <h3>Welcome to Medixify! Please log in with your registered mobile number to access your personalized dashboard. Here, you can easily view and manage your health information, appointments, and more.<br/> For any health-related questions or assistance, don’t hesitate to use the Medixify AI Assistant, our smart tool designed to support you. The assistant provides insights into common health concerns, offers wellness advice, and suggests diet plans based on your medical records.<br/> Our goal is to make your healthcare experience smoother and more informed. Thank you for choosing Medixify for your healthcare needs!</h3>
+      </div>
+      <div className='login-container'>
+        <h2>Login</h2>
+        <form onSubmit={handleLogin} className="login-form">
+          <label htmlFor="mobile-num">Mobile Number</label>
+          <input type="text" className="login-input" name='mobile-num' value={mobileNum} onChange={(e) => setMobileNum(e.target.value)} disabled={loading} />
+          <button type="submit" className="btn login-btn" disabled={loading}>Login</button>
+        </form>
 
       {loading && (
         <div className="loader">
@@ -65,7 +64,8 @@ const LoginPagePatient = () => {
       )}
 
       {notificationMessage && <Notification message={notificationMessage} type={error ? 'error' : 'success'} />}
-    </div>
+      </div>
+      </div>
   );
 };
 

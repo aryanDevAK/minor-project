@@ -94,27 +94,23 @@ const LoginPageStaff = () => {
   };
 
   return (
-    <div className='login-container'>
-      <form onSubmit={handleLogin} className="login-form">
-        <input
-          type="text"
-          className="login-input"
-          placeholder="User ID"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          disabled={loading} // Disable inputs when loading
-        />
-        <input
-          type="password"
-          className="login-input"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          disabled={loading} // Disable inputs when loading
-        />
-        <button type="submit" className="btn login-btn" disabled={loading}>Login</button>
+    <div className="login-outer">
+      <div className="login-bg">
+        <h2>Welcome back</h2>
+        <h3>Welcome to Medixify! Please log in with your user ID and password to access your dedicated dashboard.<br/> Here, you’ll find tools to efficiently manage patient records, appointments, prescriptions, and other essential tasks. Medixify aims to streamline your workflow and enhance patient care with easy access to all necessary information in one place.<br/> Additionally, you can use the Medixify AI Assistant to check health information, answer common patient inquiries, and provide preliminary advice to help patients manage their health. Thank you for your dedication to providing exceptional care through Medixify!</h3>
+      </div>
+      <div className='login-container'>
+        <h2>Login</h2>
+        <form onSubmit={handleLogin} className="login-form">
+          <label htmlFor="username">User Id</label>
+        <input name='username' type="text" className="login-input"value={userId}onChange={(e) => setUserId(e.target.value)}disabled={loading} />
+        <label htmlFor="password">Password</label>
+          <input name='password' type="password" className="login-input"  value={password} onChange={(e) => setPassword(e.target.value)} disabled={loading} />
+        <button type="submit" className="btn-border login-btn" disabled={loading}>Login</button>
         <p>Forgot Password?</p>
       </form>
+    </div>
+    
 
       {/* Show the loader while loading is true */}
       {loading && (
